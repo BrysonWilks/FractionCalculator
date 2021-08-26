@@ -41,52 +41,58 @@ def improperToMixed(input):
         return(input)
 
 def calc(s):
-    arr = s.split(' ')
 
-    for a in arr:
-        postion = arr.index(a)
+    try:
+        arr = s.split(' ')
 
-        # checking for fractions. Added in the > 1 to differenate between normal divde and fraction
-        if "/" in a and len(a) > 1:
-            vals = splitFraction(a)
-            numerator = vals[0]
-            denominator = vals[1]
+        for a in arr:
+            postion = arr.index(a)
 
-            # Assuming this is a mixed number and converting it to an improper fraction. numerator in this case will contain the multiplier and also the actual_numerator
-            # it should be in this notation 1_2.
-            if "_" in numerator:
-                multiplier, actual_numerator = numerator.split("_")
-                improperNumerator = int(multiplier) * int(denominator) + int(actual_numerator)
+            # checking for fractions. Added in the > 1 to differenate between normal divde and fraction
+            if "/" in a and len(a) > 1:
+                vals = splitFraction(a)
+                numerator = vals[0]
+                denominator = vals[1]
 
-                #convert the improper fraction numerator to the numerator
-                numerator = str(improperNumerator)
+                # Assuming this is a mixed number and converting it to an improper fraction. numerator in this case will contain the multiplier and also the actual_numerator
+                # it should be in this notation 1_2.
+                if "_" in numerator:
+                    multiplier, actual_numerator = numerator.split("_")
+                    improperNumerator = int(multiplier) * int(denominator) + int(actual_numerator)
 
-            value = (numerator + '/' + denominator)
+                    #convert the improper fraction numerator to the numerator
+                    numerator = str(improperNumerator)
 
-            # replacing the value in the array/expression with the value of the evaluation of the string
+                value = (numerator + '/' + denominator)
 
-            arr[postion] = str(eval(value))
+                # replacing the value in the array/expression with the value of the evaluation of the string
 
-    # replacing the origanal expression with the values in the array
-    s = " ".join(arr)
+                arr[postion] = str(eval(value))
 
-    # evaluting what the expression will be and creating an answer
-    # (i.e it would evaluate 10.25 + 2 = 12.25)
-    solution = eval(s)
+        # replacing the origanal expression with the values in the array
+        s = " ".join(arr)
 
-    # convert the answer from the evaluation into a fraction form of the decimal
-    solutionAsFraction = Fraction(solution)
+        # evaluting what the expression will be and creating an answer
+        # (i.e it would evaluate 10.25 + 2 = 12.25)
+        solution = eval(s)
 
-    # limit the denominator to only one value (lowest possible floor)
-    solutionAsFraction = str(solutionAsFraction.limit_denominator())
+        # convert the answer from the evaluation into a fraction form of the decimal
+        solutionAsFraction = Fraction(solution)
 
-    # returns the fractions converted to a Mixed Number
-    return(improperToMixed(solutionAsFraction))
+        # limit the denominator to only one value (lowest possible floor)
+        solutionAsFraction = str(solutionAsFraction.limit_denominator())
+
+        # returns the fractions converted to a Mixed Number
+        return(improperToMixed(solutionAsFraction))
+    except:
+        print("ILLEGAL VALUE PLEASE TRY AGAIN")
+        raise ValueError
 
 
 if __name__ == '__main__':
     print("Please enter in your expression")
     x = input()
     print(calc(x))
-    
+
     input()
+
