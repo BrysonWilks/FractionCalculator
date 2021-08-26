@@ -35,7 +35,10 @@ def improperToMixed(input):
         denominator = str(denominator)
 
         # returning the value in a format that matches the mixed number format
-        return(multiplier + "_" + numerator + "/" + denominator)
+        if (int(multiplier) != 0):
+            return (multiplier + "_" + numerator + "/" + denominator)
+        else:
+            return (numerator + "/" + denominator)
 
     else:
         return(input)
@@ -95,4 +98,5 @@ if __name__ == '__main__':
     print(calc(x))
 
     input()
+
 
