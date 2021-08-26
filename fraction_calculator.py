@@ -88,3 +88,5 @@ if __name__ == '__main__':
     print("Please enter in your expression")
     x = input()
     print(calc(x))
+    
+    input()
